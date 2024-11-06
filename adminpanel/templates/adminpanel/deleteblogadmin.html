@@ -1,0 +1,28 @@
+{% extends 'userpanel/user_base.html' %}
+{% block title %}
+Admin | delete_product
+{% endblock %}
+{% block content %}
+<div class="row m-5">
+    <div class="col-1"></div>
+        <div class="col-10">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <a href="{% url 'myownblogs' %}" class="btn btn-secondary">Cancel</a>
+                <input type="submit" value="DELETE" class="btn  btn-danger"/>
+            </form>
+
+        </div>
+    
+</div>
+{% if messages %}  
+  
+      {% for message in messages %}      
+        <script>
+          alert('{{ message }}')
+        </script>      
+      {% endfor %}
+    {% endif %}
+
+{% endblock %}

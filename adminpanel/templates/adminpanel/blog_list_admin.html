@@ -1,0 +1,178 @@
+{% extends 'adminpanel/admin_base.html' %}
+{% load static %}
+
+{% block title %}
+Admin | List_blogs
+{% endblock %}
+
+{% block content %}
+<style>
+  .tab-pane {
+    max-height: calc(100vh - 200px); /* Adjust based on your header and other margins */
+    overflow-y: auto; /* Ensure vertical scrollbar only appears when needed */
+    transition: max-height 0.3s ease-in-out; /* Smooth transition for max-height change */
+    position: relative; /* Position relative for absolute button positioning */
+  }
+
+  .expand-button {
+    position: absolute;
+    top: 10px; /* Adjust top position as needed */
+    right: -20px; /* Position the button outside the content area */
+    width: 40px;
+    height: 40px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000; /* Ensure it appears above the content */
+  }
+
+  .expand-button:hover {
+    transform: scale(1.1); /* Scale up on hover */
+  }
+
+  /* Adjust width of tab content */
+  .tab-content {
+    width: 100%; /* Ensure full width */
+    padding: 20px; /* Adjust padding as needed */
+  }
+</style>
+
+
+<div class="container mt-4" style="max-width: 1400px;">
+  <div class="row justify-content-center">
+    <div class="col">
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="pills-my-blogs-tab" data-toggle="pill" href="#pills-my-blogs" role="tab" aria-controls="pills-my-blogs" aria-selected="true">My Blogs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-hidden-tab" data-toggle="pill" href="#pills-hidden" role="tab" aria-controls="pills-hidden" aria-selected="false">Hidden</a>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="pills-tabContent">
+        <!-- Tab content for My Blogs -->
+        <div class="tab-pane fade show active" id="pills-my-blogs" role="tabpanel" aria-labelledby="pills-my-blogs-tab">
+          <h3>BLOG LIST</h3>
+          <div class="table-responsive text-nowrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>Profile Image</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                {% for blog in all_blogs %}
+                {% if blog.status == 'published' %}
+                <tr>
+                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ blog.title }}</strong></td>
+                  <td>{{ blog.author.first_name }} {{ blog.author.last_name }}</td>
+                  <td>
+                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                      <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="{{ blog.author.first_name }} {{ blog.author.last_name }}">
+                        <img src="{{ blog.blog_image.url }}" alt="Avatar" class="rounded-circle"  style="height: 50px; width: 50px;"/>
+                      </li>
+                    </ul>
+                  </td>
+                  
+                  <td>
+                    <form action="{% url 'hide_blog' blog.id %}" method="post" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to hide this blog?');">
+                        <i class="bx bx-hide me-1"></i> Hide
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      
+
+        <!-- Tab content for Hidden Blogs -->
+        <div class="tab-pane fade " id="pills-hidden" role="tabpanel" aria-labelledby="pills-hidden-tab">
+          <h3>BLOG LIST</h3>
+          <div class="table-responsive text-nowrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>Profile Image</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                {% for blog in all_blogs %}
+                {% if blog.status == 'hide'  %}
+                <tr>
+                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ blog.title }}</strong></td>
+                  <td>{{ blog.author.first_name }} {{ blog.author.last_name }}</td>
+                  <td>
+                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                      <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="{{ blog.author.first_name }} {{ blog.author.last_name }}">
+                        <img src="{{ blog.blog_image.url }}" alt="Avatar" class="rounded-circle" style="height: 50px; width: 50px;" />
+                      </li>
+                    </ul>
+                  </td>
+                  <td>
+                    {% if blog.status == 'published' %}
+                    <span class="badge bg-label-primary me-1">{{ blog.status }}</span>
+                    {% elif blog.status == 'hidden' %}
+                    <span class="badge bg-secondary me-1">{{ blog.status }}</span>
+                    {% else %}
+                    <span class="badge bg-warning text-dark me-1">{{ blog.status }}</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    
+                    <form action="{% url 'show_blog' blog.id %}" method="post" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to hide this blog?');">
+                        <i class="bx bx-hide me-1"></i> Show
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+       
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function toggleExpand() {
+    var tabContent = document.getElementById('pills-tabContent');
+    tabContent.classList.toggle('expanded');
+    var expandBtn = document.getElementById('expandBtn');
+    expandBtn.innerHTML = tabContent.classList.contains('expanded') ? '<i class="fas fa-chevron-up"></i>' : '<i class="fas fa-chevron-down"></i>';
+  }
+</script>
+
+
+<!-- {% if messages %}  
+  
+      {% for message in messages %}      
+        <script>
+          alert('{{ message }}')
+        </script>      
+      {% endfor %}
+    {% endif %} -->
+
+{% endblock %}

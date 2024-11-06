@@ -1,0 +1,49 @@
+{% extends 'adminpanel/admin_base.html' %}
+{% load static %}
+{% block title %}
+Admin | Add_blogs
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-11 offset-md-1 mt-4">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+
+
+        <div class="card-body" style=" width: 100px;">
+          <div>
+            <h3 style="margin-left: 130px;">ADD BLOG</h3>
+            <div class="row m-5">
+              <div class="col-1"></div>
+              <div class="col-10">
+                <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+
+                  {{form.as_p}}
+
+
+                  <button type="submit" class="btn btn-outline-primary ">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    </div>
+    {% if messages %}  
+  
+      {% for message in messages %}      
+        <script>
+          alert('{{ message }}')
+        </script>      
+      {% endfor %}
+    {% endif %}
+
+
+
+    {% endblock %}

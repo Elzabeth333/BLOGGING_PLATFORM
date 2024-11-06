@@ -1,0 +1,45 @@
+{% extends 'adminpanel/admin_base.html' %}
+{% load static %}
+
+{% block title %}
+admin | Home
+{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 1200px; /* Adjust based on your needs */
+  margin: 0 auto;">
+  <div class="row justify-content-center">
+    {% for blog in blogs %}
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100" >
+                <img src="{{ blog.blog_image.url }}" class="card-img-top" alt="Blog Image" style="height: 250px;;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ blog.title }}</h5>
+                    <div class="author-info">
+                        <span>Written by</span>
+                        <h6>{{ blog.author.get_full_name }}</h6>
+                        <p class="card-text" style="font-size: small;">{{ blog.created_at }}</p>
+                    </div>
+                    <p><a href="{% url 'blogviewadmin' blog.id %}" class="btn btn-outline-primary">View Blog <span class="ion-ios-arrow-forward"></span></a></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% if messages %}  
+{% for message in messages %}      
+<script>
+    alert('{{ message }}')
+</script>      
+{% endfor %}
+{% endif %}
+
+{% if not logged_user.is_authenticated %}
+<script>
+    window.location.href = '{% url "home" %}';
+</script>
+{% endif %}
+
+{% endblock %}

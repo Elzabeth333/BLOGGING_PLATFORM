@@ -1,0 +1,39 @@
+{% extends 'userpanel/user_base.html' %}
+{% load static %}
+{% block title %}
+USER | Add_blogs
+{% endblock %}
+
+{% block content %}
+           
+<div class="container" style="max-width: 1200px; margin: 0 auto;">
+  <div class="col-md-10 offset-md-1 mt-4">
+      <div class="card">
+          <div class="card-body">
+              <h2 class="text-center">ADD BLOG</h2>
+              <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="mb-3">
+                      {{ form.as_p }}
+                  </div>
+                  <div class="text-center">
+                      <button type="submit" class="btn btn-outline-primary">Submit</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+{% if messages %}  
+  
+{% for message in messages %}      
+  <script>
+    alert('{{ message }}')
+  </script>      
+{% endfor %}
+{% endif %}
+                      
+                     
+
+{% endblock %}
+

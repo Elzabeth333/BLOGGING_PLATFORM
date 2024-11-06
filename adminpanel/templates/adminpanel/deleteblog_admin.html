@@ -1,0 +1,33 @@
+{% extends 'adminpanel/admin_base.html' %}
+{% block title %}
+ADMIN| delete_Bog
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">  <!-- Adjusted column size for better alignment -->
+        <div class="card">  <!-- Optional: Add a card for better styling -->
+            <div class="card-body">
+                <h5 class="card-title">Delete Confirmation</h5>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <p>Are you sure you want to DELETE?</p>
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'myownblogs' %}" class="btn btn-secondary">Cancel</a>
+                        <input type="submit" value="DELETE" class="btn btn-danger"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% if messages %}  
+  
+{% for message in messages %}      
+  <script>
+    alert('{{ message }}')
+  </script>      
+{% endfor %}
+{% endif %}
+{% endblock %}

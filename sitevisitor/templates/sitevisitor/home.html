@@ -1,0 +1,249 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <title>Site|visitor</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+
+
+  <!-- Font -->
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+  <!-- Stylesheets -->
+
+  <link href="{% static 'common-css/bootstrap.css' %}" rel="stylesheet">
+
+  <link href="{% static 'common-css/ionicons.css' %}" rel="stylesheet">
+
+  <link href="{% static 'common-css/layerslider.css' %}" rel="stylesheet">
+
+
+  <link href="{% static '01-homepage/css/styles.css' %}" rel="stylesheet">
+
+  <link href="{% static '01-homepage/css/responsive.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <header>
+
+    <div class="top-menu">
+
+      <ul class="left-area welcome-area">
+        <li class="hello-blog">Hello nice people, welcome to blog-hub</li>
+        <li><a href="{% url 'user_login' %}">Login</a></li>
+        <li><a href="{% url 'registration' %}">Sign up</a></li>
+
+      </ul><!-- left-area -->
+
+
+      <div class="right-area">
+
+        <div class="src-area">
+          <form action="post">
+            <input class="src-input" type="text" placeholder="Search">
+            <button class="src-btn" type="submit"><i class="ion-ios-search-strong"></i></button>
+          </form>
+        </div><!-- src-area -->
+
+        <ul class="social-icons">
+          <li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
+          <li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
+          <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+          <li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
+          <li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
+        </ul><!-- right-area -->
+
+      </div><!-- right-area -->
+
+    </div><!-- top-menu -->
+
+    <div class="middle-menu center-text d-flex align-items-center" style="display: flex;
+		justify-content: center;
+		align-items: center;">
+			<img src="{% static 'images/Flat-logo-Blogger-icon.png' %}" alt="logos" class="logo-image" style="width: 100px; height: 100px; border-radius: 50px;">
+			<a href="#" class="logo" style="font-family: cursive; font-size: 50px; margin-left: 15px;">Blog-Hub</a>
+		</div>
+    <div class="bottom-area">
+
+
+      <div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="ion-navicon"></i></div>
+
+
+      <ul class="main-menu visible-on-click" id="main-menu">
+        <li class="drop-down"><a href="#!">HOME<i class=""></i></a>
+
+
+
+        </li>
+        <li><a href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">FEATURED</a></li>
+        <li><a href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">ABOUT</a></li>
+        <li><a href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">CATEGORIES</a></li>
+        <li class="drop-down"><a href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">CONTACT US<i class="#"></i></a>
+
+
+
+      </ul><!-- main-menu -->
+
+
+
+    </div><!-- conatiner -->
+  </header>
+
+
+  <div class="main-slider">
+    <div id="slider">
+
+      <div class="ls-slide"
+        data-ls="bgsize:cover; bgposition:50% 50%; duration:4000; transition2d:104; kenburnsscale:1.00;">
+
+        <img src="{% static 'images/nature-3777181_1920.jpg' %}" class="ls-bg" alt="" />
+
+        <div class="slider-content ls-l" style="top:60%; left:30%;"
+          data-ls="offsetyin:100%; offsetxout:-50%; durationin:800; delayin:100; durationout:400; parallaxlevel:0;">
+          <a class="btn" href="#">BLOG WITH</a>
+          <h3 class="title"><b>Travel, Love, Live</b></h3>
+          <h6>29 October, 2017</h6>
+        </div>
+
+      </div><!-- ls-slide -->
+
+      <div class="ls-slide"
+        data-ls="bgsize:cover; bgposition:50% 50%; duration:4000; transition2d:104; kenburnsscale:1.00;">
+        <img src="{% static 'images/sunset-1283956.jpg' %}" class="ls-bg" alt="" />
+
+        <div class="slider-content ls-l" style="top:60%; left:30%;"
+          data-ls="offsetyin:100%; offsetxout:-50%; durationin:800; delayin:100; durationout:400; parallaxlevel:0;">
+          <a class="btn" href="#">BLOG WITH</a>
+          <h3 class="title"><b>Travel, Love, Live</b></h3>
+          <h6>29 October, 2017</h6>
+        </div>
+
+      </div><!-- ls-slide -->
+
+    </div><!-- slider -->
+  </div><!-- main-slider -->
+
+
+  <section class="section blog-area">
+    <div class="container">
+      <div class="row">
+
+        {% for blogs in Blog %}
+        <div class="col-lg-6 col-md-6 mb-4">
+          <div class="blog-posts">
+            <div class="single-post">
+              <div class="image-wrapper">
+                <img src="{{ blogs.blog_image.url }}" alt="Blog Image" class="img-fluid" style="width: 100%;
+                height: 300px; /* Set your desired height */
+                object-fit: cover;">
+              </div>
+              <div class="icons d-flex justify-content-between mt-2">
+                <div class="left-area">
+                  <a class="btn category-btn" href="#"><b>{{ blogs.author.get_full_name }}</b></a>
+                </div>
+                <ul class="right-area social-icons list-inline mb-0">
+                  <li class="list-inline-item"><a href="#"><i class="ion-android-share-alt"></i> Share</a></li>
+                  <li class="list-inline-item"><a href="#"><i class="ion-android-favorite-outline"></i> 03</a></li>
+                  <li class="list-inline-item"><a href="#"><i class="ion-android-textsms"></i> 06</a></li>
+                </ul>
+              </div>
+              <p class="date mt-2"><em>{{ blogs.created_at }}</em></p>
+              <h3 class="title mt-2"><a href="#"><b class="light-color">{{ blogs.title }}</b></a></h3>
+              <a class="btn read-more-btn mt-3" href="{% url 'user_login' %}"><b>READ MORE</b></a>
+            </div><!-- single-post -->
+          </div><!-- blog-posts -->
+        </div><!-- col-lg-6 -->
+        {% endfor %}
+
+
+        
+    
+
+    </div><!-- row -->
+    </div><!-- container -->
+  </section><!-- section -->
+  {% block content %}{% endblock %}
+  {% if messages %}
+  {% for message in messages %}
+  <script>
+    alert('{{ message }}')
+  </script>
+  {% endfor %}
+  {% endif %}
+
+
+
+
+  <section class="footer-instagram-area">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h5 class="title"><b class="light-color">Follow me &copy; instagram</b></h5>
+        </div><!-- col-lg-4 -->
+      </div><!-- row -->
+    </div><!-- container -->
+
+    <ul class="instagram">
+      <li><a href="#"><img src="{% static 'images/instragram-1-300x400.jpg' %}" alt="Instagram Image"></a></li>
+      <li><a href="#"><img src="{% static 'images/instragram-2-300x400.jpg' %}" alt="Instagram Image"></a></li>
+      <li><a href="#"><img src="{% static 'images/instragram-3-300x400.jpg' %}" alt="Instagram Image"></a></li>
+      <li><a href="#"><img src="{% static 'images/instragram-4-300x400.jpg' %}" alt="Instagram Image"></a></li>
+      <li><a href="#"><img src="{% static 'images/instragram-5-300x400.jpg' %}" alt="Instagram Image"></a></li>
+      <li><a href="#"><img src="{% static 'images/instragram-6-300x400.jpg' %}" alt="Instagram Image"></a></li>
+      <li><a href="#"><img src="{% static 'images/instragram-7-300x400.jpg' %}" alt="Instagram Image"></a></li>
+    </ul>
+  </section><!-- section -->
+
+
+  <footer>
+    <div class="container">
+      <div class="row">
+
+        <div class="col-sm-6">
+          <div class="footer-section">
+            <p class="copyright">Blog-hub &copy; 2018. All rights reserved | Made with <i class="ion-heart"
+                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed
+              by <a href="https://themewagon.com" target="_blank">ThemeWagon</a></p>
+          </div><!-- footer-section -->
+        </div><!-- col-lg-4 col-md-6 -->
+
+        <div class="col-sm-6">
+          <div class="footer-section">
+            <ul class="social-icons">
+              <li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
+              <li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
+              <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+              <li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
+              <li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
+            </ul>
+          </div><!-- footer-section -->
+        </div><!-- col-lg-4 col-md-6 -->
+
+      </div><!-- row -->
+    </div><!-- container -->
+  </footer>
+
+
+  <!-- SCIPTS -->
+
+  <script src="{% static 'common-js/jquery-3.1.1.min.js' %}"></script>
+
+  <script src="{% static 'common-js/tether.min.js' %}"></script>
+
+  <script src="{% static 'common-js/bootstrap.js' %}"></script>
+
+  <script src="{% static 'common-js/layerslider.js' %}"></script>
+
+  <script src="{% static 'common-js/scripts.js' %}"></script>
+
+</body>
+
+</html>

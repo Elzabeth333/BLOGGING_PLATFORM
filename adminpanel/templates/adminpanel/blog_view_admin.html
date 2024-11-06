@@ -1,0 +1,454 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+	<title>Blog-hub| view blog</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+
+
+	<!-- Font -->
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+	<!-- Stylesheets -->
+
+	<link href="{% static 'common-css/bootstrap.css' %}" rel="stylesheet">
+
+	<link href="{% static 'common-css/ionicons.css' %}" rel="stylesheet">
+
+
+	<link href="{% static '02-Single-post/css/styles.css' %}" rel="stylesheet">
+
+	<link href="{% static '02-Single-post/css/responsive.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<header>
+
+		<div class="top-menu">
+
+			<ul class="left-area welcome-area">
+				<li class="hello-blog">Hello ADMIN, welcome to Blog-Hub</li>
+				<li><a href="mailto:contact@juliblog.com">contact@Blog-Hub.com</a></li>
+			</ul><!-- left-area -->
+
+
+			<div class="right-area">
+
+				<div class="src-area">
+					<form action="post">
+						<input class="src-input" type="text" placeholder="Search">
+						<button class="src-btn" type="submit"><i class="ion-ios-search-strong"></i></button>
+					</form>
+				</div><!-- src-area -->
+
+				<ul class="social-icons">
+					<li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
+					<li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
+					<li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+					<li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
+					<li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
+
+				</ul><!-- right-area -->
+
+			</div><!-- right-area -->
+
+		</div><!-- top-menu -->
+
+		<div class="middle-menu center-text"><a href="#" class="logo"
+				style="font-family: cursive; font-size: 50px;">Blog-Hub</a></div>
+
+		<div class="bottom-area">
+
+			<div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="ion-navicon"></i></div>
+
+			<ul class="main-menu visible-on-click" id="main-menu">
+				<li><a href="{% url 'addblogadmin' %}" class="btn btn-outline-dark mt-2"> ADD BLOG</a></li>
+				<li><a href="{% url 'admin_home' %}" style="margin-left: 300px;">Home</a></li>
+				<li class="drop-down"><a href="#!">Blogs<i class="ion-ios-arrow-down"></i></a>
+
+					<ul class="drop-down-menu">
+						<li><a href="{% url 'myblogsadmin' %}">My blogs</a></li>
+
+					</ul>
+
+				</li>
+
+				<li><a href="#">About</a></li>
+				<li class="drop-down"><a href="#!">Accounts<i class="ion-ios-arrow-down"></i></a>
+
+					<ul class="drop-down-menu">
+						<li><a href="{% url 'resetpasswordadmin' %}">Reset Password</a></li>
+						<li><a href="#">Subscription</a></li>
+
+					</ul>
+
+				</li>
+				<li><a href="#">Contact</a></li>
+
+				<li>
+					<p class="mb-0 d-none d-sm-block navbar-profile-name" style="margin-left: 250px;">Welcome{{logged_user.first_name}}{{ logged_user.last_name}}</p>
+				</li>
+				<li>
+					<a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
+						<div class="navbar-profile">
+
+							<img class="img-xs rounded-circle" style="width: 2rem;"
+								src="{{ logged_user.profile.profile_image.url }}" alt="Profile Image">
+
+							<i class="mdi mdi-menu-down d-none d-sm-block"></i>
+						</div>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+						aria-labelledby="profileDropdown">
+						<h6 class="p-3 mb-0">Profile</h6>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item preview-item" href="#">
+							<div class="preview-thumbnail">
+								<div class="preview-icon bg-dark rounded-circle">
+									<i class="mdi mdi-settings text-success"></i>
+								</div>
+							</div>
+							<div class="preview-item-content">
+								<p class="preview-subject mb-1">Settings</p>
+							</div>
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="{% url 'sign_out' %}" class="dropdown-item preview-item">
+							<div class="preview-thumbnail">
+								<div class="preview-icon bg-dark rounded-circle">
+									<i class="mdi mdi-logout text-danger"></i>
+								</div>
+							</div>
+							<div class="preview-item-content">
+								<p class="preview-subject mb-1">Logout</p>
+							</div>
+						</a>
+						<div class="dropdown-divider"></div>
+						<p class="p-3 mb-0 text-center">Advanced settings</p>
+					</div>
+				</li>
+			</ul>
+			</ul><!-- main-menu -->
+
+		</div><!-- conatiner -->
+	</header>
+
+	<section class="blog-area">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-lg-8 col-md-12">
+					<div class="blog-posts">
+
+						<div class="single-post">
+							<div class="image-wrapper"><img src="{{ blog.blog_image.url }}" alt="Blog Image"></div>
+
+							<div class="icons">
+								<div class="left-area">
+									<a class="btn caegory-btn" href="#"><b>written by,&nbsp;&nbsp;{{
+											blog.author.get_full_name }}</b></a>
+								</div>
+								<ul class="right-area social-icons">
+									<li><a href="#"><i class="ion-android-share-alt"></i>Share</a></li>
+									<li><a href="#"><i class="ion-android-textsms"></i> {{ count }}</a></li>
+								</ul>
+							</div>
+							<p class="date"><em>{{ blog.status }},&nbsp;&nbsp;{{ blog.created_at }}</em></p>
+							<h3 class="title"><a href="#"><b class="light-color">{{ blog.title }}</b></a></h3>
+							<p class="desc">{{ blog.content }}
+
+
+							<ul>
+								<li><a class="btn" href="#">travel</a></li>
+								<li><a class="btn" href="#">fashion</a></li>
+							</ul>
+
+						</div><!-- single-post -->
+
+
+
+
+						<div class="leave-comment-area">
+							<h4 class="title"><b class="light-color">Leave a comment</b></h4>
+							<form method="post">
+								{% csrf_token %}
+								{{ form.as_p }}
+								<div class="col-sm-12">
+									<button class="btn btn-2" style="margin-left: 250px;"><b>COMMENT</b></button>
+								</div>
+							</form>
+							<h4 class="title"><b class="light-color">{{ count }} Comments</b></h4>
+							{% if comments %}
+
+							{% for comment in comments %}
+
+							<div class="d-flex align-items-start">
+								<div>
+									<p><strong>{{ comment.author.get_full_name }}</strong> - {{comment.created_at|date:"F d, Y" }}</p>
+									<p>{{ comment.comment }}</p>
+								</div>
+								{% if comment.author == request.user %}
+								<!-- Delete Button Icon -->
+								<form action="{% url 'delete_comment' comment.id %}" method="post">
+									{% csrf_token %}
+									<button type="submit" class="bx bx-trash" style="margin-left: 100px;">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+											viewBox="0 0 24 24" style="fill: rgb(20, 20, 20); transform: msFilter;">
+											<path
+												d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z">
+											</path>
+											<path d="M9 10h2v8H9zm4 0h2v8h-2z"></path>
+										</svg>
+									</button>
+								</form>
+								{% endif %}
+								
+								<form action="{% url 'hide_comments' comment.id %}" method="post">
+									{% csrf_token %}
+									<button type="submit" class="bx bx-trash" style="margin-left: 100px;">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: msFilter;"><path d="M12 19c.946 0 1.81-.103 2.598-.281l-1.757-1.757c-.273.021-.55.038-.841.038-5.351 0-7.424-3.846-7.926-5a8.642 8.642 0 0 1 1.508-2.297L4.184 8.305c-1.538 1.667-2.121 3.346-2.132 3.379a.994.994 0 0 0 0 .633C2.073 12.383 4.367 19 12 19zm0-14c-1.837 0-3.346.396-4.604.981L3.707 2.293 2.293 3.707l18 18 1.414-1.414-3.319-3.319c2.614-1.951 3.547-4.615 3.561-4.657a.994.994 0 0 0 0-.633C21.927 11.617 19.633 5 12 5zm4.972 10.558-2.28-2.28c.19-.39.308-.819.308-1.278 0-1.641-1.359-3-3-3-.459 0-.888.118-1.277.309L8.915 7.501A9.26 9.26 0 0 1 12 7c5.351 0 7.424 3.846 7.926 5-.302.692-1.166 2.342-2.954 3.558z"></path></svg>
+									</button>
+								</form>
+								
+							</div>
+							</li>
+							{% endfor %}
+							</ul>
+							{% else %}
+							<p>No comments yet.</p>
+							{% endif %}
+							<div class="comment">
+								<div class="author-image"></div>
+								<div class="comment-info">
+									<h5><b class="light-color"></b></h5>
+									<h6 class="date"><em></em></h6>
+									<p>.</p>
+								</div>
+							</div><!-- comment -->
+
+						</div><!-- comments-area -->
+
+
+						<div class="leave-comment-area">
+
+							<div class="leave-comment">
+
+
+
+							</div><!-- leave-comment -->
+
+						</div><!-- comments-area -->
+
+					</div><!-- blog-posts -->
+				</div><!-- col-lg-4 -->
+				{% if messages %}
+
+				{% for message in messages %}
+				<script>
+					alert('{{ message }}')
+				</script>
+				{% endfor %}
+				{% endif %}
+
+
+
+
+				<div class="col-lg-4 col-md-12">
+					<div class="sidebar-area">
+
+						<div class="sidebar-section about-author center-text">
+							<div class="author-image"><img src=" {{ blog.author.profile.profile_image.url }}"
+									alt="{{ blog.author.profile.phone}}"></div>
+
+							<ul class="social-icons">
+								<li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
+								<li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
+								<li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+								<li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
+								<li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
+							</ul><!-- right-area -->
+
+							<h4 class="author-name"><b class="light-color">{{ blog.author.get_full_name }}</b></h4>
+							<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+								dolore magnam aliquam quaerat voluptatem.</p>
+
+							<div class="signature-image"><img src="{% static 'images/signature-image.png' %}"
+									alt="Signature Image"></div>
+							<a class="read-more-link" href="#"><b>READ MORE</b></a>
+
+						</div><!-- sidebar-section about-author -->
+
+						<div class="sidebar-section src-area">
+
+							<form action="post">
+								<input class="src-input" type="text" placeholder="Search">
+								<button class="src-btn" type="submit"><i class="ion-ios-search-strong"></i></button>
+							</form>
+
+						</div><!-- sidebar-section src-area -->
+
+						<div class="sidebar-section newsletter-area">
+							<h5 class="title"><b>Subscribe to our newsletter</b></h5>
+							<form action="post">
+								<input class="email-input" type="text" placeholder="Your email here">
+								<button class="btn btn-2" type="submit">SUBSCRIBE</button>
+							</form>
+						</div><!-- sidebar-section newsletter-area -->
+
+						<div class="sidebar-section category-area">
+							<h4 class="title"><b class="light-color">Categories</b></h4>
+							<a class="category" href="#">
+								<img src="{% static 'images/category-1-400x150.jpg' %}" alt="Category Image">
+								<h6 class="name">TRAVEL</h6>
+							</a>
+
+							<a class="category" href="#">
+								<img src="{% static 'images/category-2-400x150.jpg' %}" alt="Category Image">
+								<h6 class="name">FASHION</h6>
+							</a>
+
+							<a class="category" href="#">
+								<img src="{% static 'images/category-3-400x150.jpg' %}" alt="Category Image">
+								<h6 class="name">LIFESTYLE</h6>
+							</a>
+							<a class="category" href="#">
+								<img src="{% static 'images/category-4-400x150.jpg' %}" alt="Category Image">
+								<h6 class="name">DESIGN</h6>
+							</a>
+						</div><!-- sidebar-section category-area -->
+
+						<div class="sidebar-section latest-post-area">
+							<h4 class="title"><b class="light-color">Latest Posts</b></h4>
+
+							<div class="latest-post" href="#">
+								<div class="l-post-image"><img src="{% static 'images/recent-post-1-150x200.jpg' %}"
+										alt="Category Image"></div>
+								<div class="post-info">
+									<a class="btn category-btn" href="#">TRAVEL</a>
+									<h5><a href="#"><b class="light-color">One more night in the clubs</b></a></h5>
+									<h6 class="date"><em>Monday, October 13, 2017</em></h6>
+								</div>
+							</div>
+
+							<div class="latest-post" href="#">
+								<div class="l-post-image"><img src="{% static 'images/recent-post-2-150x200.jpg' %}"
+										alt="Category Image"></div>
+								<div class="post-info">
+									<a class="btn category-btn" href="#">TRAVEL</a>
+									<h5><a href="#"><b class="light-color">Travel lights in winter</b></a></h5>
+									<h6 class="date"><em>Monday, October 13, 2017</em></h6>
+								</div>
+							</div>
+							<div class="latest-post" href="#">
+								<div class="l-post-image"><img src="{% static 'images/recent-post-3-150x200.jpg' %}"
+										alt="Category Image"></div>
+								<div class="post-info">
+									<a class="btn category-btn" href="#">TRAVEL</a>
+									<h5><a href="#"><b class="light-color">How to travel with no money</b></a></h5>
+									<h6 class="date"><em>Monday, October 13, 2017</em></h6>
+								</div>
+							</div>
+
+							<div class="latest-post" href="#">
+								<div class="l-post-image"><img src="{% static 'images/recent-post-4-150x200.jpg' %}"
+										alt="Category Image"></div>
+								<div class="post-info">
+									<a class="btn category-btn" href="#">TRAVEL</a>
+									<h5><a href="#"><b class="light-color">Smile 10 times a day</b></a></h5>
+									<h6 class="date"><em>Monday, October 13, 2017</em></h6>
+								</div>
+							</div>
+
+						</div><!-- sidebar-section latest-post-area -->
+
+						<div class="sidebar-section advertisement-area">
+							<h4 class="title"><b class="light-color">Advertisement</b></h4>
+							<a class="advertisement-img" href="#">
+								<img src="{% static 'images/advertise-1-400x500.jpg' %}" alt="Advertisement Image">
+								<h6 class="btn btn-2 discover-btn">DISCOVER</h6>
+							</a>
+						</div><!-- sidebar-section advertisement-area -->
+
+
+
+
+
+					</div><!-- about-author -->
+				</div><!-- col-lg-4 -->
+
+			</div><!-- row -->
+		</div><!-- container -->
+	</section><!-- section -->
+
+
+	<section class="footer-instagram-area">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<h5 class="title"><b class="light-color">Follow me &copy; instagram</b></h5>
+				</div><!-- col-lg-4 -->
+			</div><!-- row -->
+		</div><!-- container -->
+
+		<ul class="instagram">
+			<li><a href="#"><img src="{% static 'images/instragram-1-300x400.jpg' %}" alt="Instagram Image"></a></li>
+			<li><a href="#"><img src="{% static 'images/instragram-2-300x400.jpg' %}" alt="Instagram Image"></a></li>
+			<li><a href="#"><img src="{% static 'images/instragram-3-300x400.jpg' %}" alt="Instagram Image"></a></li>
+			<li><a href="#"><img src="{% static 'images/instragram-4-300x400.jpg' %}" alt="Instagram Image"></a></li>
+			<li><a href="#"><img src="{% static 'images/instragram-5-300x400.jpg' %}" alt="Instagram Image"></a></li>
+			<li><a href="#"><img src="{% static 'images/instragram-6-300x400.jpg' %}" alt="Instagram Image"></a></li>
+			<li><a href="#"><img src="{% static 'images/instragram-7-300x400.jpg' %}" alt="Instagram Image"></a></li>
+		</ul>
+	</section><!-- section -->
+
+
+	<footer>
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-6">
+					<div class="footer-section">
+						<p class="copyright">Blog-Hub &copy; 2018. All rights reserved | Made with <i class="ion-heart"
+								aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+							&amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a></p>
+					</div><!-- footer-section -->
+				</div><!-- col-lg-4 col-md-6 -->
+
+				<div class="col-sm-6">
+					<div class="footer-section">
+						<ul class="social-icons">
+							<li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-vimeo-outline"></i></a></li>
+							<li><a href="#"><i class="ion-social-pinterest-outline"></i></a></li>
+						</ul>
+					</div><!-- footer-section -->
+				</div><!-- col-lg-4 col-md-6 -->
+
+			</div><!-- row -->
+		</div><!-- container -->
+	</footer>
+
+
+	<!-- SCIPTS -->
+
+	<script src="{% static 'common-js/jquery-3.1.1.min.js' %}"></script>
+
+	<script src="{% static 'common-js/tether.min.js' %}"></script>
+
+	<script src="{% static 'common-js/bootstrap.js' %}"></script>
+
+	<script src="{% static 'common-js/scripts.js' %}"></script>
+
+</body>
+
+</html>

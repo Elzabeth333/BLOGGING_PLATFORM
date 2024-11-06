@@ -1,0 +1,64 @@
+{% extends 'userpanel/user_base.html' %}
+{% load static %}
+
+{% block title %}
+USER | View Profile
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title" style="font-size: 20px;">Profile Information</h5>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col col-md-6">
+          <div class="form-group">
+            <label>Profile Image:</label>
+            {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="Profile Image" style="width: 300px; height: 300px;">
+            {% endif %}
+          </div> 
+        </div>
+        <div class="col col-md-6">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+              <label style="display: inline-block; width: 100px; font-size: 25px; font-weight: bold;">Name:</label>
+              <label style="display: inline-block; font-size: 25px;">{{ profile.user.first_name }}</label>
+              <label style="display: inline-block; font-size: 25px;">{{ profile.user.last_name }}</label>
+          </div>
+          <div class="form-group">
+              <label style="display: inline-block; width: 100px; font-size: 15px; font-weight: bold;">Username:</label>
+              <label style="display: inline-block; font-size: 15px;">{{ profile.user.username }}</label>
+          </div>
+          <div class="form-group">
+              <label style="display: inline-block; width: 100px; font-size: 15px; font-weight: bold;">Email:</label>
+              <label style="display: inline-block; font-size: 15px;">{{ profile.user.email }}</label>
+          </div>
+          <div class="form-group">
+              <label style="display: inline-block; width: 100px; font-size: 15px; font-weight: bold;">Phone:</label>
+              <label style="display: inline-block; font-size: 15px;">{{ profile.phone }}</label>
+          </div>
+          <div class="form-group">
+              <label style="display: inline-block; width: 100px; font-size: 15px; font-weight: bold;" for="id_proof">ID Proof:</label>
+              {% if profile.id_proof %}
+                  <img src="{{ profile.id_proof.url }}" alt="ID Proof" style="max-width: 100px; max-height: 100px; display: block; margin-top: 10px;">
+              {% endif %}
+          </div>
+          <div style="margin-top: 100px; margin-bottom: 20px;">
+              <a href="{% url 'editprofileuser' user.id %}">
+                  <button type="button" class="btn btn-outline-primary mt-2">EDIT PROFILE</button>
+              </a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}
+

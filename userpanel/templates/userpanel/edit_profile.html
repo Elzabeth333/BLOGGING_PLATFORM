@@ -1,0 +1,27 @@
+{% extends 'userpanel/user_base.html' %}
+{% load static %}
+{% block title %}
+USER | Edit-Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Edit Profile</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ form1.as_p }}
+        <button type="submit" class="btn btn-primary m-2">Update Details</button>
+      </form>
+</div>
+
+{% if messages %}  
+  
+{% for message in messages %}      
+  <script>
+    alert('{{ message }}')
+  </script>      
+{% endfor %}
+{% endif %}
+{% endblock %}

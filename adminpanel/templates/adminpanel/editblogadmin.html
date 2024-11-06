@@ -1,0 +1,55 @@
+{% extends 'adminpanel/admin_base.html' %}
+{% load static %}
+{% block title %}
+ADMIN | Edit_blogs
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="col-md-11 offset-md-1 mt-4">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title text-center">Edit details</h4>
+      <hr>
+      <div class="row m-5">
+        <div class="col-1"></div>
+        <div class="col-10">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{form.as_p}}
+
+
+            <button type="submit" class="btn btn-outline-primary">Update</button>
+            <a href="{% url 'admin_home' %}"></a><button type="submit" class="btn btn-outline-primary">Cancel</button>
+
+
+
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+</div>
+
+
+
+
+{% if messages %}  
+  
+      {% for message in messages %}      
+        <script>
+          alert('{{ message }}')
+        </script>      
+      {% endfor %}
+    {% endif %}
+
+
+{% endblock %}

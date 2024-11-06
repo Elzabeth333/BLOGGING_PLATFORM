@@ -1,0 +1,77 @@
+{% extends 'adminpanel/admin_base.html' %}
+{% load static %}
+
+{% block title %}
+USER | View Profile
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title" style="font-size: 20px;">Profile Information</h5>
+    </div>
+    <div class="container">
+      <div class="row">
+        <!-- Left Side: Profile Image and Update Button -->
+        <div class="col-md-8 mt-4">
+          <div class="form-group">
+            <label>Profile Image:</label>
+            {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="Profile Image" style="width: 500px; height: 500px;">
+            {% endif %}
+          </div>
+        </div>
+        
+        <!-- Right Side: Profile Details -->
+        <div class="col-md-4 mt-4">
+          <div class="form-group">
+              <label style="display: inline-block; width: 100px; font-size: 25px; font-weight: bold;">Name:</label>
+              <span style="display: inline-block; font-size: 25px;">{{ profile.user.first_name }} {{ profile.user.last_name }}</span>
+          </div>
+          <div class="form-group">
+              <label style="display: inline-block; width: 100px; font-size: 15px; font-weight: bold;">Username:</label>
+              <span style="display: inline-block; font-size: 15px;">{{ profile.user.username }}</span>
+          </div>
+          <div class="form-group">
+              <label style="display: inline-block; width: 100px; font-size: 15px; font-weight: bold;">Email:</label>
+              <span style="display: inline-block; font-size: 15px;">{{ profile.user.email }}</span>
+          </div>
+          <div class="form-group">
+              <label style="display: inline-block; width: 100px; font-size: 15px; font-weight: bold;">First Name:</label>
+              <span style="display: inline-block; font-size: 15px;">{{ profile.user.first_name }}</span>
+          </div>
+          <div class="form-group">
+              <label style="display: inline-block; width: 100px; font-size: 15px; font-weight: bold;">Last Name:</label>
+              <span style="display: inline-block; font-size: 15px;">{{ profile.user.last_name }}</span>
+          </div>
+          <div class="form-group">
+              <label style="display: inline-block; width: 100px; font-size: 15px; font-weight: bold;">Phone:</label>
+              <span style="display: inline-block; font-size: 15px;">{{ profile.phone }}</span>
+          </div>
+          <div class="form-group">
+              <label style="display: inline-block; width: 100px; font-size: 15px; font-weight: bold;" for="id_proof">ID Proof:</label>
+              {% if profile.id_proof %}
+              <img src="{{ profile.id_proof.url }}" alt="ID Proof" style="max-width: 100px; max-height: 100px; display: block; margin-top: 10px;">
+              {% endif %}
+          </div>
+          <div style="margin-top: 40px;">
+              <a href="{% url 'edit_profile' user.id %}">
+                  <button type="submit" class="btn btn-outline-primary mt-2">EDIT PROFILE</button>
+              </a>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% if messages %}  
+  
+      {% for message in messages %}      
+        <script>
+          alert('{{ message }}')
+        </script>      
+      {% endfor %}
+    {% endif %}
+
+{% endblock %}
